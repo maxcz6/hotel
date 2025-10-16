@@ -14,5 +14,13 @@ class Room extends Model
         'type',
         'price',
         'description',
+        'capacity',
+        'status',
+        'amenities',
+    ];
+
+    protected $casts = [
+        'amenities' => 'array',
+        'price' => 'decimal:2',
     ];
 }

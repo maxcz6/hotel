@@ -8,7 +8,7 @@ class RoomController extends Controller
 {
     public function index()
     {
-        $rooms = Room::paginate(15);
+        $rooms = Room::orderBy('number')->paginate(15);
         return view('rooms.index', compact('rooms'));
     }
 
@@ -26,6 +26,7 @@ class RoomController extends Controller
             'description' => 'nullable|string',
             'capacity' => 'nullable|integer',
             'status' => 'nullable|string',
+            'amenities' => 'nullable|array',
         ]);
 
         Room::create($data);
@@ -52,6 +53,7 @@ class RoomController extends Controller
             'description' => 'nullable|string',
             'capacity' => 'nullable|integer',
             'status' => 'nullable|string',
+            'amenities' => 'nullable|array',
         ]);
 
         $room->update($data);
@@ -65,25 +67,3 @@ class RoomController extends Controller
         return redirect()->route('rooms.index')->with('success', 'Room deleted');
     }
 }
-<?php
-
-namespace App\Http\Controllers;
-
-use App\Models\Room;
-
-class RoomController extends Controller
-{
-    public function index()
-    {
-        $rooms = Room::orderBy('number')->get();
-        return view('rooms.index', compact('rooms'));
-    }
-}
-
-/**
- * RoomController
- *
- * Controlador sencillo para vistas públicas de habitaciones (demo). En una
- * versión final esto podría delegar en Livewire components del módulo
- * RoomManagement para una UI completa del panel admin.
- */
